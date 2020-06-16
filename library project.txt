@@ -1,0 +1,104 @@
+Create DATABASE LibraryDB
+GO
+
+USE LibraryDB
+GO
+
+Create Table Catalog(
+(TypeID  int primary key identity,
+Title nvarchar(max),
+ISBn-OTHER nvarchar(max),
+Auther nvarchar(max),
+Info nvarchar(max),
+Category nvarchar(max),
+Tags-label nvarchar(max),
+ID-Barcode int foreign key references Type-lookup(ID-Barcode),
+Total copies nvarchar(max),
+Avaliable nvarchar(max),
+Cover-or-case nvarchar(max),
+Last-modified-Dt nvarchar(max),
+Last-modified-By nvarchar(max)
+)
+GO
+
+Create Table Loan-Items(
+Transaction ID int primary key references Catalog(CatalogID),
+CatalogID int foreign key,
+check-out-Dt nvarchar(max),
+check-in-Dt nvarchar(max),
+Due-Dt nvarchar(max),
+Penatly nvarchar(max),
+Waived nvarchar(max)
+)
+
+GO
+
+Create Table Type-Lookup(
+ID int foreign key references Catalog(ID-Barcode),
+Name nvarchar(max),
+Naterial nvarchar(max),
+Cover-Case nvarchar(max),
+Last-Modified-Dt nvarchar(max),
+Last-Modified-By nvarchar(max)
+)
+
+GO
+
+Create Table Member-Transaction(
+ID int primary key identity,
+MemberID int foreign key references Members(ID),
+Employee-ID int foreign key references Employees(ID)
+Date nvarchar(max),
+Total_Amount nvarchar(max),
+Paid nvarchar(max), 
+)
+GO
+
+Create Table Members(
+ID int primary key identity,
+Member_Cared_No nvarchar(max),
+Name nvarchar(max),
+Address nvarchar(max),
+City nvarchar(max),
+Zipcodenvarchar(max),
+Email nvarchar(max),
+Phone nvarchar(max),
+AddressProof_Type nvarchar(max),
+AddressProof_info nvarchar(max),
+Last_Modified_Dt nvarchar(max),
+Last_Modified_By nvarchar(max),
+Child nvarchar(max),
+GaurdianID nvarchar(max),
+DOB nvarchar(max)
+)
+
+GO
+
+Create Table Loan-Rules(
+ID int primary key identity,
+TypeID int foreign key references Type-Lookup(ID),
+RuleName nvarchar(max),
+Value nvarchar(max),
+Matrix nvarchar(max),
+Last_Modified_Dt nvarchar(max),
+Last_Modified_By nvarchar(max)
+)
+
+GO
+
+Create Table Employees(
+ID int primary key identity,
+Name nvarchar(max),
+Address nvarchar(max),
+City nvarchar(max),
+Zipcodenvarchar(max),
+Phone nvarchar(max),
+Email nvarchar(max),
+Start_Dt nvarchar(max),
+End_Dt nvarchar(max),
+Last_Modified_Dt nvarchar(max),
+Last_Modified_By nvarchar(max)
+)
+)
+
+GO

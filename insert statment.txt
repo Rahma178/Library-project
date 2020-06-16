@@ -1,0 +1,228 @@
+Select Statements using Different Functions 
+1-View all existing books
+SELECT * FROM catalog;
+
+2-Show each loan item to members
+SELECT * FROM loan item;
+
+3- Show all type-lookup 
+SELECT * FROM type-lookup;
+
+4- View member transaction details
+SELECT * FROM member transaction;
+
+5- View details of all members
+SELECT * FROM members;
+
+6- View details of all employees
+SELECT * FROM employees;
+
+7-view details of all loan-Rules
+SELECT * FROM loan-Rules;
+
+7-Look for the name of the book in the catalog whose title begins with the letter "A"
+SELECT *
+FROM catalog
+ Where Title like 'A';
+
+9- Show all book names in the type-lookup
+SELECT * FROM type-lookup;
+
+10- List the name, address, email and phone numbers of the employees in descending order
+SELECT Name, Address, E-mail, Phone 
+ FROM Employees
+Order by descending;
+
+11- State the expiry check-out-date and check-in-date in the loan- item
+SELECT check-out-date, check-in-date
+FROM loan-item
+Mention;
+
+12- Provide the date and amount paid to members who want to do business
+SELECT date, Paid
+FROM Member-Transaction;
+
+13- View recent amendments to the loan rules
+SELECT last-modified-by 
+FROM loan-rules;
+
+14- List of all details of new members on 15-9-2019 in descending order
+SELECT * 
+FROM Members
+Where joined = '15-9-2019'
+Order by descending;
+
+15- List all members whose names begin with the letter "R"
+SELECT * 
+FROM Members
+Where Name like 'R%';
+
+16- List all employees whose name begins with the letter "T"
+SELECT * 
+FROM Employees
+Where Name like 'T%';
+
+17- View all members whose numbers begin with "010"
+SELECT * 
+FROM Members
+Where Phone like '010';
+
+18- View all Employees whose numbers begin with "015"
+SELECT * 
+FROM Employees
+Where Phone like '015';
+
+19- List all Catalog in descending order
+SELECT * 
+FROM Catalog
+Order by descending;
+
+
+
+20- List each loan- item in descending order
+SELECT * 
+FROM Loan-item
+Order by descending;
+
+Sub Query statements
+List the books you've been searching for a specific book
+SELECT Name
+ FROM Type-lookup 
+ WHERE Id IN (SELECT ID
+  FROM Member-Transaction
+  WHERE Specific book)
+
+What is the highest amount of members paid for books?
+SELECT Paid
+ FROM member
+Where book (select Max (book) from member); 
+What is the min name of the book that was loaned?
+SELECT Max (name)
+ FROM loan-rules;
+
+
+
+Count and Group functions
+1. Find count of all name of member
+SELECT count (*)
+ FROM member
+Group by name;
+
+2- Find all kinds of loan rules
+SELECT count (*)
+ FROM loan-type
+Group by type id;
+
+3-Search for the number of category in the catalog for each book item at least 10 category
+SELECT count (category)
+FROM Catalog
+Group by item
+Having count (category) >= 10;
+
+
+
+
+Join statements
+
+1-List all type-lookup with loan-rules information
+SELECT Name, material, type id, rules name, value
+FROM [type-lookup] JOIN loan-rules
+ON [type-lookup]. Type id = type. Id
+
+
+2- List all catalog with loan-item information
+SELECT id- barcode, title, category, catalog id, check-out-date, check-in-date 
+FROM [Catalog] JOIN loan-item
+ON [catalog]. Catalog id = catalog. Id
+
+
+3- List all member transaction with member information
+SELECT ID, Date, paid, name, Address, City, E-mail, Phone 
+FROM [member transaction] JOIN member
+ON [member transaction]. Member ID = Member ID 
+
+
+
+
+4- Matching members from the same city and address
+SELECT B. Name AS Name1, B. Name AS Name1, 
+ A. Name AS Name2, A. Name AS Name2, 
+ B. City, B. address
+ FROM Member A, Member B
+ WHERE A. Id <> B. Id
+ AND A. City = B. City 
+ AND A. address = B. address
+ ORDER BY A. address
+
+5- Include members who have a transaction
+SELECT Name, Address, date, City, E-mail
+FROM [member transaction] O RIGHT JOIN Member C
+ON O. Member = C. Id
+WHERE Total Amount IS NULL
+
+Insert Statement
+1-	Add a record of new member access to the database
+INSERT INTO member (Name, City, Address, Phone)
+VALUES ('Ali', 'Cairo', 'Egypt', 010887)
+
+
+2-	 Add a record of new Employees access to the database
+INSERT INTO Employees (Name, City, Address, Phone)
+VALUES ('Nike', 'Rome', 'Italia', '65478')
+
+3-	Add a new member called Tomes to the database
+   INSERT INTO member (Name)
+   VALUES ('Tomes')
+
+4-	Add a new category in catalog called book to the database
+   INSERT INTO catalog (category)
+   VALUES ('Books')
+
+5-	Add a new rule-name in loan-rules called new rule to the database
+   INSERT INTO loan-rules (rule-name)
+   VALUES ('New Rule')
+
+
+
+
+
+Update Statement
+1-	Discontinue all Type-lookup in the database
+UPDATE Type-lookup
+   SET Is Discontinued = 1
+
+2-	Discontinue all Employees in the database
+UPDATE Employees
+   SET Is Discontinued = 1
+
+3-	Discontinue Type-lookup with Id = 31.
+ UPDATE Type-lookup
+    SET Is Discontinued = 1
+  WHERE Id = 31
+
+4-	Discontinue Loan Rules with Id = 22.
+ UPDATE Loan Rules
+    SET Is Discontinued = 1
+  WHERE Id = 22
+
+
+5-	Member Mike Ali (Id = 3) has moved: update their city, phone and Address.
+UPDATE Member
+   SET City = 'Alex', Phone = '(0)1-64237770', Address = 'Egypt'
+ WHERE Id = 3
+
+Delete Statement
+1- Delete all Loan-Rules.
+DELETE Loan-Rules
+
+2- Delete the non-paying member
+    DELETE member
+ WHERE the non-paying
+
+4- Delete Employee with Id = 19.
+DELETE Employee
+ WHERE Id = 19
+
+5- Delete Member with Id = 5.
+DELETE Member
+ WHERE Id = 5
